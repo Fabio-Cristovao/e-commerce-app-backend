@@ -10,26 +10,42 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id Int @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime @updatedAt
-
-  email String
-  hash String?
-
-  firstName String?
-  lastName String?
-
-
-}
 model Product {
   id Int @id @default(autoincrement())
+  name String
+  price Float
+  image String
+  product_category Product_Category @relation(fields: [categoryId], references: [id])
+  product_inventory Product_Inventory?
+  categoryId Int
+  inventoryId Int
+  description String
   createdAt DateTime  @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
 }
-model Order {
+
+model Product_Category {
   id Int @id @default(autoincrement())
+  name String
+  products Product[]
+  image String?
   createdAt DateTime  @default(now())
   updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+  
 }
+
+model Product_Inventory {
+  id Int @unique @id
+  product Product @relation(fields: [product_inventory], references: [id])
+  product_inventory Int @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime @updatedAt
+  deletedAt DateTime?
+}
+
+
+
+
+
