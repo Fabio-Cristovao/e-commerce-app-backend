@@ -8,10 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrderEntity = void 0;
-const user_entity_1 = require("src/auth/user.entity");
+const user_entity_1 = require("../auth/user.entity");
 const product_entity_1 = require("../product/product.entity");
 const typeorm_1 = require("typeorm");
 let OrderEntity = class OrderEntity {
@@ -27,14 +26,16 @@ __decorate([
 __decorate([
     (0, typeorm_1.OneToOne)((type) => user_entity_1.Users, (user) => user.username),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", typeof (_a = typeof user_entity_1.Users !== "undefined" && user_entity_1.Users) === "function" ? _a : Object)
+    __metadata("design:type", user_entity_1.Users)
 ], OrderEntity.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Number)
 ], OrderEntity.prototype, "subTotal", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ default: false }),
+    (0, typeorm_1.Column)({
+        default: false,
+    }),
     __metadata("design:type", Boolean)
 ], OrderEntity.prototype, "pending", void 0);
 OrderEntity = __decorate([
