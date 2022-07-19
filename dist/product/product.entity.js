@@ -10,7 +10,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductEntity = void 0;
-const cart_entity_1 = require("../cart/cart.entity");
 const typeorm_1 = require("typeorm");
 let ProductEntity = class ProductEntity {
 };
@@ -39,7 +38,7 @@ __decorate([
     __metadata("design:type", String)
 ], ProductEntity.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)((type) => cart_entity_1.CartEntity, (cart) => cart.id),
+    (0, typeorm_1.OneToMany)((type) => CartEntity, (cart) => cart.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Array)
 ], ProductEntity.prototype, "cart", void 0);
