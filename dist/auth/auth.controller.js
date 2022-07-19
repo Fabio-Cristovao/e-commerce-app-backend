@@ -11,30 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
+const auth_service_1 = require("./service/auth.service");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    signup() {
-        return this.authService.signup();
-    }
-    signin() {
-        return this.authService.signin();
-    }
 };
-__decorate([
-    (0, common_1.Post)('signup'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "signup", null);
-__decorate([
-    (0, common_1.Post)('signin'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "signin", null);
 AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

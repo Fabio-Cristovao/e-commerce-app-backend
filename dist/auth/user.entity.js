@@ -40,12 +40,12 @@ __decorate([
     __metadata("design:type", String)
 ], Users.prototype, "updatedAt", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)((type) => cart_entity_1.CartEntity, (cart) => cart.id),
+    (0, typeorm_1.OneToMany)(() => cart_entity_1.CartEntity, (cart) => cart.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Array)
 ], Users.prototype, "cart", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)((type) => order_entity_1.OrderEntity, (order) => order.id),
+    (0, typeorm_1.OneToOne)(() => order_entity_1.OrderEntity, (order) => order.id),
     (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", order_entity_1.OrderEntity)
 ], Users.prototype, "order", void 0);

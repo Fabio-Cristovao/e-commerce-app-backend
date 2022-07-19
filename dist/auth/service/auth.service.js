@@ -11,26 +11,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+var __rest = (this && this.__rest) || function (s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const jwt_1 = require("@nestjs/jwt");
+const bcrypt = require("bcrypt");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const user_entity_1 = require("../user.entity");
-const bcrypt = require("bcrypt");
-async;
-signup(user, user_entity_1.Users);
-Promise < user_entity_1.Users > {
-    const: salt = await bcrypt.genSalt(),
-    const: hash = await bcrypt.hash(user.password, salt),
-    user, : .password = hash,
-    return: await this.userRepository.save(user)
-};
 let AuthService = class AuthService {
-    constructor(userRepository, jwt) {
-        this.userRepository = userRepository;
+    constructor(usersRepository, jwt) {
+        this.usersRepository = usersRepository;
         this.jwt = jwt;
+    }
+    async signup(user) {
+        const salt = await bcrypt.genSalt();
+        const hash = await bcrypt.hash(user.password, salt);
+        user.password = hash;
+        return await this.usersRepository.save(user);
+    }
+    async validateUser(username, password) {
+        const foundUser = await this.usersRepository.findOneBy({ username });
+        if (foundUser) {
+            if (await bcrypt.compare(password, foundUser.password)) {
+                const { password } = foundUser, result = __rest(foundUser, ["password"]);
+                return result;
+            }
+            return null;
+        }
+        return null;
+    }
+    async login(user) {
+        const payload = { username: user.username, sub: user.id, role: user.role };
+        return {
+            accessToken: this.jwt.sign(payload),
+        };
     }
 };
 AuthService = __decorate([

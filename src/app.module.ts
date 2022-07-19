@@ -5,6 +5,7 @@ import { ProductModule } from './product/product.module';
 import { CartModule } from './cart/cart.module';
 import { OrderModule } from './order/order.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { PrismaModule } from './prisma/prisma.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       entities: [__dirname + '../**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    PrismaModule,
   ],
 })
 export class AppModule {}
