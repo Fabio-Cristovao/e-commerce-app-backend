@@ -13,6 +13,7 @@ let PrismaModule = class PrismaModule {
 };
 PrismaModule = __decorate([
     (0, common_1.Module)({
+        imports: [prisma_service_1.PrismaService],
         providers: [prisma_service_1.PrismaService],
         exports: [prisma_service_1.PrismaService],
     })
