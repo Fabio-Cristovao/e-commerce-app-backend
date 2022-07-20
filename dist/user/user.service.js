@@ -9,26 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthController = void 0;
+exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
-const auth_service_1 = require("./auth.service");
-let AuthController = class AuthController {
-    constructor(authService) {
-        this.authService = authService;
+const prisma_service_1 = require("../prisma/prisma.service");
+const bcrypt = require("bcrypt");
+let UserService = class UserService {
+    constructor(prisma) {
+        this.prisma = prisma;
     }
-    login() {
-        return 'fazer login';
+    async create(createUserDto) {
+        const data = Object.assign(Object.assign({}, createUserDto), { password: await bcrypt.hash(createUserDto.password, 10) });
+        const createdUser = await this.prisma.user.create({ data });
+        return Object.assign(Object.assign({}, createdUser), { password: undefined });
+    }
+    findByEmail(email) {
+        return this.prisma.user.findUnique({
+            where: { email },
+        });
     }
 };
-__decorate([
-    (0, common_1.Post)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthController.prototype, "login", null);
-AuthController = __decorate([
-    (0, common_1.Controller)('auth'),
-    __metadata("design:paramtypes", [auth_service_1.AuthService])
-], AuthController);
-exports.AuthController = AuthController;
-//# sourceMappingURL=auth.controller.js.map
+UserService = __decorate([
+    (0, common_1.Injectable)(),
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+], UserService);
+exports.UserService = UserService;
+//# sourceMappingURL=user.service.js.map
