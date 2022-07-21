@@ -6,15 +6,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthService = void 0;
+exports.LocalAuthGuard = void 0;
 const common_1 = require("@nestjs/common");
-let AuthService = class AuthService {
-    validateUser(email, password) {
-        throw new Error('Method not implemented.');
+const passport_1 = require("@nestjs/passport");
+let LocalAuthGuard = class LocalAuthGuard extends (0, passport_1.AuthGuard)('local') {
+    canActivate(context) {
+        return super.canActivate(context);
+    }
+    handleRequest(err, user) {
+        if (err || !user) {
+            throw new common_1.UnauthorizedException(err === null || err === void 0 ? void 0 : err.message);
+        }
+        return user;
     }
 };
-AuthService = __decorate([
+LocalAuthGuard = __decorate([
     (0, common_1.Injectable)()
-], AuthService);
-exports.AuthService = AuthService;
-//# sourceMappingURL=auth.service.js.map
+], LocalAuthGuard);
+exports.LocalAuthGuard = LocalAuthGuard;
+//# sourceMappingURL=local-auth-guard.js.map

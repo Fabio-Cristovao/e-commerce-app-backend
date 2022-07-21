@@ -1,12 +1,15 @@
-import { Controller, Post } from '@nestjs/common';
+import { Controller, HttpCode, Post, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { LocalAuthGuard } from './guards/local-auth-guard';
 
-@Controller('auth')
+@Controller('login')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post()
+  @HttpCode(200)
+  @UseGuards(LocalAuthGuard)
   login() {
-    return 'fazer login';
+    //return this.authService.login();
   }
 }
