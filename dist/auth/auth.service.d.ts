@@ -1,5 +1,5 @@
 import { UserService } from 'src/user/user.service';
-import { User } from 'src/user/entities/user.entity';
+import { User } from '../user/entities/user.entity';
 import { JwtService } from '@nestjs/jwt';
 import { UserToken } from './models/UserToken';
 export declare class AuthService {

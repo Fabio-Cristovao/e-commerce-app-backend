@@ -15,7 +15,6 @@ let LocalAuthGuard = class LocalAuthGuard extends (0, passport_1.AuthGuard)('loc
     }
     handleRequest(err, user) {
         if (err || !user) {
-            throw new common_1.UnauthorizedException(err === null || err === void 0 ? void 0 : err.message);
         }
         return user;
     }

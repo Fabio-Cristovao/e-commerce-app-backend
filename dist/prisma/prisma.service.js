@@ -13,6 +13,9 @@ let PrismaService = class PrismaService extends client_1.PrismaClient {
     async onModuleInit() {
         await this.$connect();
     }
+    $connect() {
+        throw new Error('Method not implemented.');
+    }
     async enableShutdownHooks(app) {
         this.$on('beforeExit', async () => {
             await app.close();
